@@ -38,7 +38,8 @@ def mae_mask(image: np.ndarray, ratio: float = 0.45, patch: int = 16, seed: int 
     blur = np.asarray(Image.fromarray(masked).filter(ImageFilter.GaussianBlur(radius=5)))
     recon = masked.copy()
     recon[mask] = blur[mask]
-    heat = np.mean(np.abs(recon.astype(float) - image.astype(float)), axis=2)
+    heat = np.mean(np.abs(recon.astype(float) - image.astype(float)), axis=2) / 255.0
+    heat = np.clip(heat, 0.0, 1.0)
     epochs = np.arange(1, 36)
     loss = 0.9 * ratio * np.exp(-epochs / 11) + 0.06
     return {"masked": masked, "recon": recon, "heat": heat, "loss": loss}

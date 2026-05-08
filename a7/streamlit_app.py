@@ -65,7 +65,7 @@ with tabs[1]:
     cols[0].image(base_input, caption=image_source, use_container_width=True)
     cols[1].image(res["masked"], caption="遮挡后", use_container_width=True)
     cols[2].image(res["recon"], caption="重建结果", use_container_width=True)
-    cols[3].image(res["heat"], caption="误差热力图", use_container_width=True)
+    cols[3].image(res["heat"], caption="误差热力图", use_container_width=True, clamp=True)
     st.line_chart({"mae_loss": res["loss"]})
 
 with tabs[2]:
